@@ -11,5 +11,5 @@ spring:
         default_schema: public
 
   liquibase:
-    enabled: false
+    enabled: true
     change-log: db/changelog/master.yaml
