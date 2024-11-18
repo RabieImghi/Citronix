@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FarmResponse {
+    private Long id;
     private String name;
     private String location;
     private Double area;
