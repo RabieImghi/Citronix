@@ -1,4 +1,4 @@
-package org.rabie.citronix.rest.vm.request;
+package org.rabie.citronix.rest.vm.request.farm;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

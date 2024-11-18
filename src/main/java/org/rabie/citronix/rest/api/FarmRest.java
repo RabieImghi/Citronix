@@ -2,16 +2,14 @@ package org.rabie.citronix.rest.api;
 
 import org.rabie.citronix.domain.Farm;
 import org.rabie.citronix.rest.mapper.FarmMapper;
-import org.rabie.citronix.rest.vm.request.FarmSaveRequest;
+import org.rabie.citronix.rest.vm.request.farm.FarmSaveRequest;
+import org.rabie.citronix.rest.vm.request.farm.FarmUpdateRequest;
 import org.rabie.citronix.rest.vm.response.FarmResponse;
 import org.rabie.citronix.service.FarmService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/farm")
@@ -27,7 +25,14 @@ public class FarmRest {
 
     @PostMapping("/save")
     public ResponseEntity<FarmResponse> save(@Validated @RequestBody FarmSaveRequest farmSaveRequest){
-        Farm farm = farmMapper.toFarm(farmSaveRequest);
+        Farm farm = farmMapper.toFarmFromSaveRequest(farmSaveRequest);
+        farm = farmService.save(farm);
+        return ResponseEntity.ok(farmMapper.toFarmResponse(farm));
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<FarmResponse> update(@Validated @RequestBody FarmUpdateRequest farmUpdateRequest){
+        Farm farm = farmMapper.toFarmFromUpdateRequest(farmUpdateRequest);
         farm = farmService.save(farm);
         return ResponseEntity.ok(farmMapper.toFarmResponse(farm));
     }
