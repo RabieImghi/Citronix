@@ -1,6 +1,7 @@
 package org.rabie.citronix.rest.api;
 
 import org.rabie.citronix.domain.Farm;
+import org.rabie.citronix.dto.SearchFarmDto;
 import org.rabie.citronix.rest.mapper.FarmMapper;
 import org.rabie.citronix.rest.vm.request.farm.FarmSaveRequest;
 import org.rabie.citronix.rest.vm.request.farm.FarmUpdateRequest;
@@ -45,6 +46,14 @@ public class FarmRest {
     public Page<FarmResponse> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size ){
         PageRequest pageRequest = PageRequest.of(page,size);
         Page<Farm> farms = farmService.getAll(pageRequest);
+        return farms.map(farmMapper::toFarmResponse);
+    }
+
+
+    @PostMapping("/search")
+    public Page<FarmResponse> search(@RequestBody SearchFarmDto searchFarmDto, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size ){
+        PageRequest pageRequest = PageRequest.of(page,size);
+        Page<Farm> farms = farmService.searchFarms(searchFarmDto,pageRequest);
         return farms.map(farmMapper::toFarmResponse);
     }
 }

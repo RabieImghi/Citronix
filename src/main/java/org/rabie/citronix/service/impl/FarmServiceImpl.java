@@ -1,9 +1,11 @@
 package org.rabie.citronix.service.impl;
 
 import org.rabie.citronix.domain.Farm;
+import org.rabie.citronix.dto.SearchFarmDto;
 import org.rabie.citronix.exception.FarmNullException;
 import org.rabie.citronix.repository.FarmRepository;
 import org.rabie.citronix.service.FarmService;
+import org.rabie.citronix.specification.FarmSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -24,5 +26,9 @@ public class FarmServiceImpl implements FarmService {
 
     public Page<Farm> getAll(PageRequest pageRequest){
         return farmRepository.findAll(pageRequest);
+    }
+
+    public Page<Farm> searchFarms(SearchFarmDto searchDto, PageRequest pageRequest) {
+        return farmRepository.findAll(FarmSpecification.getUsersByCriteria(searchDto), pageRequest);
     }
 }
