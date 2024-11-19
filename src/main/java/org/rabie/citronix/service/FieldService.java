@@ -5,5 +5,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface FieldService {
+    Field save(Field field);
     Field delete(Field field);
 }
