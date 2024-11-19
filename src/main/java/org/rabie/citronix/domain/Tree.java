@@ -28,4 +28,11 @@ public class Tree {
     public Long getAge() {
         return ChronoUnit.YEARS.between(datePlantation, LocalDate.now());
     }
+
+    public Double getProductivity() {
+        long age = this.getAge();
+        if(age< 3 ) return 2.5;
+        else if(age < 10) return 12.;
+        else return 20.;
+    }
 }

@@ -17,4 +17,5 @@ public class TreeResponse {
     private FieldResponse field;
     private Long age;
     private String treeType;
+    private Double productivityMonthly;
 }

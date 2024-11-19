@@ -59,6 +59,7 @@ public class TreeRest {
             if(tree.getAge()< 3 ) tree.setTreeType("young tree");
             else if(tree.getAge() < 10) tree.setTreeType("mature tree");
             else tree.setTreeType("old tree");
+            tree.setProductivityMonthly(tree.getProductivityMonthly());
             return tree;
         });
     }
@@ -75,6 +76,7 @@ public class TreeRest {
         if(treeResponse.getAge()< 3 ) treeResponse.setTreeType("young tree");
         else if(treeResponse.getAge() < 10) treeResponse.setTreeType("mature tree");
         else treeResponse.setTreeType("old tree");
+        treeResponse.setProductivityMonthly(tree.getProductivity()*4);
         return ResponseEntity.ok(treeResponse);
     }
 
