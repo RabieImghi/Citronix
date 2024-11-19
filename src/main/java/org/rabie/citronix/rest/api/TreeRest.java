@@ -54,7 +54,10 @@ public class TreeRest {
     public Page<TreeResponse> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Tree> trees = treeService.getAll(pageRequest);
-        return trees.map(treeMapper::toTreeResponse);
+        return trees.map(treeMapper::toTreeResponse).map(tree -> {
+            tree.setAge(tree.getAge());
+            return tree;
+        });
     }
 
 
@@ -65,6 +68,7 @@ public class TreeRest {
         if(field == null) throw new FieldsNullException("Field not found");
         tree.setField(field);
         TreeResponse treeResponse = treeMapper.toTreeResponse(treeService.save(tree));
+        treeResponse.setAge(tree.getAge());
         return ResponseEntity.ok(treeResponse);
     }
 
