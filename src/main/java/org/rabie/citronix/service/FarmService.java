@@ -12,5 +12,8 @@ import java.util.List;
 public interface FarmService {
     Farm save(Farm farm);
     Page<Farm> getAll(PageRequest pageRequest);
-    public Page<Farm> searchFarms(SearchFarmDto searchDto, PageRequest pageRequest);
+    Page<Farm> searchFarms(SearchFarmDto searchDto, PageRequest pageRequest);
+    Farm delete(Farm farm);
+    Farm findById(Long id);
+    List<Farm> farmAreaGetAll();
 }

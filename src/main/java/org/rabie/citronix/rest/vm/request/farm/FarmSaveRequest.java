@@ -3,8 +3,10 @@ package org.rabie.citronix.rest.vm.request.farm;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.rabie.citronix.domain.Field;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,4 +21,6 @@ public class FarmSaveRequest {
     private Double area;
     @NotNull
     private LocalDate dateCreation;
+
+    private List<Field> fields;
 }

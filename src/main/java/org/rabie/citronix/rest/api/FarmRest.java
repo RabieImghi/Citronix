@@ -1,5 +1,6 @@
 package org.rabie.citronix.rest.api;
 
+import jakarta.validation.Valid;
 import org.rabie.citronix.domain.Farm;
 import org.rabie.citronix.dto.SearchFarmDto;
 import org.rabie.citronix.rest.mapper.FarmMapper;
@@ -29,14 +30,14 @@ public class FarmRest {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<FarmResponse> save(@Validated @RequestBody FarmSaveRequest farmSaveRequest){
+    public ResponseEntity<FarmResponse> save(@Valid @RequestBody FarmSaveRequest farmSaveRequest){
         Farm farm = farmMapper.toFarmFromSaveRequest(farmSaveRequest);
         farm = farmService.save(farm);
         return ResponseEntity.ok(farmMapper.toFarmResponse(farm));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<FarmResponse> update(@Validated @RequestBody FarmUpdateRequest farmUpdateRequest){
+    public ResponseEntity<FarmResponse> update(@Valid @RequestBody FarmUpdateRequest farmUpdateRequest){
         Farm farm = farmMapper.toFarmFromUpdateRequest(farmUpdateRequest);
         farm = farmService.save(farm);
         return ResponseEntity.ok(farmMapper.toFarmResponse(farm));
@@ -55,5 +56,18 @@ public class FarmRest {
         PageRequest pageRequest = PageRequest.of(page,size);
         Page<Farm> farms = farmService.searchFarms(searchFarmDto,pageRequest);
         return farms.map(farmMapper::toFarmResponse);
+    }
+
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<FarmResponse> delete(@PathVariable Long id){
+        Farm farm = farmService.findById(id);
+        farm = farmService.delete(farm);
+        return ResponseEntity.ok(farmMapper.toFarmResponse(farm));
+    }
+
+    @GetMapping("/farmAreaGetAll")
+    public List<FarmResponse> farmAreaGetAll(){
+        List<Farm> farms = farmService.farmAreaGetAll();
+        return farms.stream().map(farmMapper::toFarmResponse).toList();
     }
 }

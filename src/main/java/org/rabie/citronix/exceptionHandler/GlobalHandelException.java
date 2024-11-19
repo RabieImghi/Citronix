@@ -1,6 +1,6 @@
 package org.rabie.citronix.exceptionHandler;
 
-import org.rabie.citronix.exception.FarmNullException;
+import org.rabie.citronix.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,6 +19,30 @@ public class GlobalHandelException {
     public String farmNull(FarmNullException e){
         return e.getMessage();
     }
+
+
+    @ExceptionHandler(FieldsNullException.class)
+    public String FieldsNullException(FieldsNullException e){
+        return e.getMessage();
+    }
+
+
+    @ExceptionHandler(FarmMustNotBeHaveFieldsException.class)
+    public String farmNull(FarmMustNotBeHaveFieldsException e){
+        return e.getMessage();
+    }
+
+
+    @ExceptionHandler(FarmMustBeHaveFieldsException.class)
+    public String farmNull(FarmMustBeHaveFieldsException e){
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(AreaOfFiledMustBeInfAreaOfFarmException.class)
+    public String farmNull(AreaOfFiledMustBeInfAreaOfFarmException e){
+        return e.getMessage();
+    }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, List<String>>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
