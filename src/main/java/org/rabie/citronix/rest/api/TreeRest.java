@@ -56,6 +56,9 @@ public class TreeRest {
         Page<Tree> trees = treeService.getAll(pageRequest);
         return trees.map(treeMapper::toTreeResponse).map(tree -> {
             tree.setAge(tree.getAge());
+            if(tree.getAge()< 3 ) tree.setTreeType("young tree");
+            else if(tree.getAge() < 10) tree.setTreeType("mature tree");
+            else tree.setTreeType("old tree");
             return tree;
         });
     }
@@ -69,6 +72,9 @@ public class TreeRest {
         tree.setField(field);
         TreeResponse treeResponse = treeMapper.toTreeResponse(treeService.save(tree));
         treeResponse.setAge(tree.getAge());
+        if(treeResponse.getAge()< 3 ) treeResponse.setTreeType("young tree");
+        else if(treeResponse.getAge() < 10) treeResponse.setTreeType("mature tree");
+        else treeResponse.setTreeType("old tree");
         return ResponseEntity.ok(treeResponse);
     }
 

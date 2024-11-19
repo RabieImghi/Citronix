@@ -16,4 +16,5 @@ public class TreeResponse {
     private LocalDate datePlantation;
     private FieldResponse field;
     private Long age;
+    private String treeType;
 }
