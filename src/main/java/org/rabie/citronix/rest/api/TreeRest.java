@@ -11,6 +11,8 @@ import org.rabie.citronix.rest.vm.response.TreeResponse;
 import org.rabie.citronix.service.FieldService;
 import org.rabie.citronix.service.TreeService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +48,16 @@ public class TreeRest {
         treeService.deleteById(id);
         return ResponseEntity.ok("Tree deleted successfully");
     }
+
+
+    @GetMapping("/getAll")
+    public Page<TreeResponse> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Tree> trees = treeService.getAll(pageRequest);
+        return trees.map(treeMapper::toTreeResponse);
+    }
+
+
 
     private ResponseEntity<TreeResponse> saveAndUpdateTree(Tree tree, LocalDate datePlantation, Long fieldId) {
         tree.setDatePlantation(datePlantation);

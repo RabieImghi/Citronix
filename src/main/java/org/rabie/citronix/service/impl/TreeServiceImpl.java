@@ -5,6 +5,8 @@ import org.rabie.citronix.exception.TreeNullException;
 import org.rabie.citronix.repository.TreeRepository;
 import org.rabie.citronix.rest.api.TreeRest;
 import org.rabie.citronix.service.TreeService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 @Component("treeService")
@@ -28,5 +30,10 @@ public class TreeServiceImpl implements TreeService {
             throw new TreeNullException("Tree not found");
         treeRepository.deleteById(id);
         return tree;
+    }
+
+    @Override
+    public Page<Tree> getAll(PageRequest pageRequest) {
+        return treeRepository.findAll(pageRequest);
     }
 }
