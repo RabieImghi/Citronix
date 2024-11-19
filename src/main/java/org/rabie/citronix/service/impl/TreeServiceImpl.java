@@ -21,4 +21,12 @@ public class TreeServiceImpl implements TreeService {
             throw new TreeNullException("fields is null");
         return treeRepository.save(tree);
     }
+
+    public Tree deleteById(Long id) {
+        Tree tree = treeRepository.findById(id).orElse(null);
+        if (tree == null)
+            throw new TreeNullException("Tree not found");
+        treeRepository.deleteById(id);
+        return tree;
+    }
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface TreeService {
     Tree save(Tree tree);
+    Tree deleteById(Long id);
 }

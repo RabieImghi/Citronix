@@ -41,6 +41,12 @@ public class TreeRest {
         return saveAndUpdateTree(tree, updateRequest.getDatePlantation(), updateRequest.getFieldId());
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        treeService.deleteById(id);
+        return ResponseEntity.ok("Tree deleted successfully");
+    }
+
     private ResponseEntity<TreeResponse> saveAndUpdateTree(Tree tree, LocalDate datePlantation, Long fieldId) {
         tree.setDatePlantation(datePlantation);
         Field field = fieldService.findById(fieldId);
