@@ -56,4 +56,12 @@ public class FarmRest {
         Page<Farm> farms = farmService.searchFarms(searchFarmDto,pageRequest);
         return farms.map(farmMapper::toFarmResponse);
     }
+
+
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<FarmResponse> delete(@PathVariable Long id){
+        Farm farm = farmService.findById(id);
+        farm = farmService.delete(farm);
+        return ResponseEntity.ok(farmMapper.toFarmResponse(farm));
+    }
 }

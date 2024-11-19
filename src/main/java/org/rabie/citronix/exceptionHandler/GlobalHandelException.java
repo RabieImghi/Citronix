@@ -1,6 +1,9 @@
 package org.rabie.citronix.exceptionHandler;
 
+import org.rabie.citronix.exception.AreaOfFiledMustBeInfAreaOfFarmException;
+import org.rabie.citronix.exception.FarmMustNotBeHaveFieldsException;
 import org.rabie.citronix.exception.FarmNullException;
+import org.rabie.citronix.exception.FieldsNullException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -34,4 +37,20 @@ public class GlobalHandelException {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
+
+    @ExceptionHandler(AreaOfFiledMustBeInfAreaOfFarmException.class)
+    public String farmNull(AreaOfFiledMustBeInfAreaOfFarmException e){
+        return e.getMessage();
+    }
+
+
+    @ExceptionHandler(FieldsNullException.class)
+    public String FieldsNullException(FieldsNullException e){
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(FarmMustNotBeHaveFieldsException.class)
+    public String farmNull(FarmMustNotBeHaveFieldsException e){
+        return e.getMessage();
+    }
 }
