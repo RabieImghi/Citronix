@@ -6,6 +6,8 @@ import org.rabie.citronix.exception.AreaOfFiledMustBeInfAreaOfFarmException;
 import org.rabie.citronix.exception.FieldsNullException;
 import org.rabie.citronix.repository.FieldRepository;
 import org.rabie.citronix.service.FieldService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -33,6 +35,15 @@ public class FieldServiceImpl implements FieldService {
             throw new FieldsNullException("fields is null");
         fieldRepository.delete(field);
         return field;
+    }
+
+
+    public Page<Field> getAll(PageRequest pageRequest) {
+        return fieldRepository.findAll(pageRequest);
+    }
+
+    public Field findById(Long id) {
+        return fieldRepository.findById(id).orElse(null);
     }
 }
 
