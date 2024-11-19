@@ -21,7 +21,10 @@ public class FieldServiceImpl implements FieldService {
     public Field save(Field field) {
         if (field==null)
             throw new FieldsNullException("fields is null");
-
+        List<Field> fields = fieldRepository.findByFarmId(field.getFarm().getId());
+        double area = fields.stream().mapToDouble(Field::getArea).sum() + field.getArea();
+        if(area>= field.getFarm().getArea())
+            throw new AreaOfFiledMustBeInfAreaOfFarmException("Area of filed must be inf area of farm");
         return fieldRepository.save(field);
     }
 
