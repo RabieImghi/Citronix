@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Entity
@@ -23,4 +24,8 @@ public class Tree {
     private Field field;
     @OneToMany(mappedBy = "tree")
     private List<HarvestDetail> harvestDetails;
+
+    public Long getAge() {
+        return ChronoUnit.YEARS.between(datePlantation, LocalDate.now());
+    }
 }

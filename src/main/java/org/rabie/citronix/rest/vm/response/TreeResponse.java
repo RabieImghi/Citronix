@@ -15,4 +15,5 @@ public class TreeResponse {
     private Long id;
     private LocalDate datePlantation;
     private FieldResponse field;
+    private Long age;
 }
