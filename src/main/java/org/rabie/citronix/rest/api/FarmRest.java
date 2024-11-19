@@ -59,7 +59,7 @@ public class FarmRest {
     }
 
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<FarmResponse> delete(@PathVariable Long id){
         Farm farm = farmService.findById(id);
         farm = farmService.delete(farm);
