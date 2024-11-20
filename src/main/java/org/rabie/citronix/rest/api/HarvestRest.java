@@ -29,7 +29,7 @@ public class HarvestRest {
         Harvest harvest = new Harvest();
         harvest.setHarvestDate(request.getHarvestDate());
         harvest.setTotalQuantity(request.getTotalQuantity());
-        harvest = harvestService.save(harvest);
+        harvest = harvestService.save(harvest, request.getFieldId());
         HarvestResponse response = new HarvestResponse();
         response.setId(harvest.getId());
         response.setSession(String.valueOf(harvest.getSession()));

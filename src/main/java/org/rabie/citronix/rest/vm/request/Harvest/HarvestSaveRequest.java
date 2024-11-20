@@ -18,4 +18,5 @@ public class HarvestSaveRequest {
     @NotNull
     private LocalDate harvestDate;
     private Double totalQuantity = 0.;
+    private Long fieldId = null;
 }
