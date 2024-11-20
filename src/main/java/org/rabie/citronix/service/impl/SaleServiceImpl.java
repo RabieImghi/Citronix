@@ -38,4 +38,9 @@ public class SaleServiceImpl implements SaleService {
     public Page<Sale> findAll(PageRequest pageRequest) {
         return saleRepository.findAll(pageRequest);
     }
+
+    @Override
+    public void deleteByHarvestId(Long harvestId) {
+        saleRepository.deleteByHarvestId(harvestId);
+    }
 }

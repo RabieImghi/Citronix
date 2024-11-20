@@ -52,4 +52,14 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
             throw new HarvestDetailsNullOrEmptyException("Harvest details cannot be null or empty");
         harvestDetailRepository.saveAll(harvestDetails);
     }
+
+    public void deleteByHarvestId(Long id) {
+        harvestDetailRepository.deleteByHarvestId(id);
+    }
+
+    public void deleteByTreeId(Long id) {
+        List<HarvestDetail> lists = harvestDetailRepository.findByTreeId(id);
+        harvestDetailRepository.deleteAll(lists);
+    }
+
 }

@@ -12,4 +12,6 @@ public interface SaleService {
     Sale update(Sale sale);
     void delete(Long id);
     Page<Sale> findAll(PageRequest pageRequest);
+    void deleteByHarvestId(Long harvestId);
+
 }
