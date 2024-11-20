@@ -54,4 +54,9 @@ public class GlobalHandelException {
     public String farmNull(FarmMustNotBeHaveFieldsException e){
         return e.getMessage();
     }
+
+    @ExceptionHandler(HarvestNullException.class)
+    public String harvestNullException(HarvestNullException e){
+        return e.getMessage();
+    }
 }
