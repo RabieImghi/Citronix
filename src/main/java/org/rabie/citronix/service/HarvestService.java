@@ -10,5 +10,6 @@ import java.time.LocalDate;
 public interface HarvestService {
     Harvest save(Harvest harvest,Long fieldId);
     Session getSessionFromDate(LocalDate date);
+    Harvest findById(Long id);
 
 }

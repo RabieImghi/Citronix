@@ -64,4 +64,11 @@ public class GlobalHandelException {
         return e.getMessage();
     }
 
+    @ExceptionHandler(HarvestDetailAlreadyExistException.class)
+    public String harvestDetailAlreadyExist(HarvestDetailAlreadyExistException e){
+        return e.getMessage();
+    }
+
+
+
 }

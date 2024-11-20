@@ -28,7 +28,7 @@ public class HarvestServiceImpl implements HarvestService {
     public Harvest save(Harvest harvest, Long fieldId) {
         if (harvest == null) throw new HarvestNullException("Harvest cannot be null");
         harvest.setSession(getSessionFromDate(harvest.getHarvestDate()));
-        if(harvestRepository.existsBySessionAndHarvestDate(harvest.getSession(), harvest.getHarvestDate()))
+        if(existsBySessionAndHarvestDate(harvest.getSession(), harvest.getHarvestDate()))
             throw new HarvestNullException("Harvest already exists for this session");
         if(fieldId!=null){
             return saveHarvestWithDetails(fieldId, harvest);
@@ -49,6 +49,9 @@ public class HarvestServiceImpl implements HarvestService {
         harvestDetailService.saveAll(harvestDetails);
         return savedHarvest;
     }
+    public Boolean existsBySessionAndHarvestDate(Session session, LocalDate harvestDate) {
+        return harvestRepository.existsBySessionAndHarvestDate(session, harvestDate);
+    }
     public Session getSessionFromDate(LocalDate date) {
         int month = date.getMonthValue();
         return switch (month) {
@@ -58,6 +61,9 @@ public class HarvestServiceImpl implements HarvestService {
             case 10, 11, 12 -> Session.AUTUMN;
             default -> throw new IllegalArgumentException("Invalid month: " + month);
         };
+    }
+    public Harvest findById(Long id) {
+        return harvestRepository.findById(id).orElse(null);
     }
 
 }

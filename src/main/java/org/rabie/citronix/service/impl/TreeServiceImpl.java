@@ -42,4 +42,9 @@ public class TreeServiceImpl implements TreeService {
     public List<Tree> getByFieldId(Long fieldId) {
         return treeRepository.findByFieldId(fieldId);
     }
+
+    @Override
+    public Tree getById(Long id) {
+        return treeRepository.findById(id).orElse(null);
+    }
 }
