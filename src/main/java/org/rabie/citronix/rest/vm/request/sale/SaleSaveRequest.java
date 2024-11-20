@@ -1,7 +1,6 @@
-package org.rabie.citronix.domain;
+package org.rabie.citronix.rest.vm.request.sale;
 
-
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,18 +8,17 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Sale {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class SaleSaveRequest {
+    @NotNull
     private LocalDate saleDate;
+    @NotNull
     private Double unitPrice;
+    @NotNull
     private String client;
-    @OneToOne
-    private Harvest harvest;
+    @NotNull
+    private Long harvestId;
 }

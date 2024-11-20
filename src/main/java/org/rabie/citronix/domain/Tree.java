@@ -19,6 +19,7 @@ public class Tree {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
     private LocalDate datePlantation;
     @ManyToOne
     private Field field;
