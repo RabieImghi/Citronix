@@ -8,6 +8,9 @@ import org.rabie.citronix.exception.HarvestNullException;
 import org.rabie.citronix.repository.HarvestRepository;
 import org.rabie.citronix.service.HarvestDetailService;
 import org.rabie.citronix.service.HarvestService;
+import org.rabie.citronix.service.SaleService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -18,11 +21,13 @@ import java.util.List;
 public class HarvestServiceImpl implements HarvestService {
     private final HarvestRepository harvestRepository;
     private final TreeServiceImpl treeService;
-    private final HarvestDetailServiceImpl harvestDetailService;
-    public HarvestServiceImpl(HarvestRepository harvestRepository,TreeServiceImpl treeService,HarvestDetailServiceImpl harvestDetailService) {
+    private final HarvestDetailService harvestDetailService;
+    private final SaleService saleService;
+    public HarvestServiceImpl(HarvestRepository harvestRepository,TreeServiceImpl treeService,HarvestDetailService harvestDetailService, SaleService saleService) {
         this.harvestRepository = harvestRepository;
         this.treeService = treeService;
         this.harvestDetailService = harvestDetailService;
+        this.saleService = saleService;
     }
 
     public Harvest save(Harvest harvest, Long fieldId) {
@@ -65,5 +70,19 @@ public class HarvestServiceImpl implements HarvestService {
     public Harvest findById(Long id) {
         return harvestRepository.findById(id).orElse(null);
     }
+
+    public void delete(Long id) {
+        Harvest harvest = findById(id);
+        if(harvest == null)
+            throw new HarvestNullException("Harvest not found");
+        saleService.deleteByHarvestId(id);
+        harvestDetailService.deleteByHarvestId(id);
+        harvestRepository.delete(harvest);
+    }
+
+    public Page<Harvest> getAll(PageRequest pageRequest) {
+        return harvestRepository.findAll(pageRequest);
+    }
+
 
 }

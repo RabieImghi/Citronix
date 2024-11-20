@@ -12,4 +12,6 @@ public interface HarvestDetailService {
     List<HarvestDetail> getListDetail(List<Tree> trees);
     Boolean existsByHarvestAndTree(Long harvestId, Long treeId);
     HarvestDetail save(HarvestDetail harvestDetail);
+    void saveAll(List<HarvestDetail> harvestDetails);
+    void deleteByHarvestId(Long id);
 }

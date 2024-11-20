@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HarvestDetailRepository extends JpaRepository<HarvestDetail,Long> {
     Boolean existsByHarvestIdAndTreeId(Long harvestId, Long treeId);
+    void deleteByHarvestId(Long harvestId);
 }
