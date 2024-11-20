@@ -59,4 +59,9 @@ public class GlobalHandelException {
     public String harvestNullException(HarvestNullException e){
         return e.getMessage();
     }
+    @ExceptionHandler(HarvestDetailsNullOrEmptyException.class)
+    public String harvestDetailsNullOrEmptyException(HarvestDetailsNullOrEmptyException e){
+        return e.getMessage();
+    }
+
 }

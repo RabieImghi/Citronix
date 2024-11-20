@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Service
 public interface HarvestService {
-    Harvest save(Harvest harvest);
+    Harvest save(Harvest harvest,Long fieldId);
     Session getSessionFromDate(LocalDate date);
 
 }
