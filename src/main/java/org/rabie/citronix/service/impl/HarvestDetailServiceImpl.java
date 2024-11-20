@@ -18,6 +18,17 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
         this.harvestDetailRepository = harvestDetailRepository;
     }
 
+    public HarvestDetail save(HarvestDetail harvestDetail) {
+        if(harvestDetail == null)
+            throw new HarvestDetailsNullOrEmptyException("Harvest detail cannot be null");
+        if(harvestDetail.getTree() == null)
+            throw new HarvestDetailsNullOrEmptyException("Tree cannot be null");
+        if (harvestDetail.getQuantityHarvested() == null)
+            throw new HarvestDetailsNullOrEmptyException("Quantity harvested cannot be null");
+        if(harvestDetail.getHarvest()==null)
+            throw new HarvestDetailsNullOrEmptyException("Harvest cannot be null");
+        return harvestDetailRepository.save(harvestDetail);
+    }
 
     @Override
     public List<HarvestDetail> getListDetail(List<Tree> trees) {
@@ -29,6 +40,11 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
             harvestDetails.add(harvestDetail);
         }
         return harvestDetails;
+    }
+
+    @Override
+    public Boolean existsByHarvestAndTree(Long harvestId, Long treeId) {
+        return harvestDetailRepository.existsByHarvestIdAndTreeId(harvestId, treeId);
     }
 
     public void saveAll(List<HarvestDetail> harvestDetails) {

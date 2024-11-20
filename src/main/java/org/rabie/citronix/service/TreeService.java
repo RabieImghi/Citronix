@@ -13,4 +13,5 @@ public interface TreeService {
     Tree deleteById(Long id);
     Page<Tree> getAll(PageRequest pageRequest);
     List<Tree> getByFieldId(Long fieldId);
+    Tree getById(Long id);
 }
