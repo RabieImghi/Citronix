@@ -69,6 +69,13 @@ public class GlobalHandelException {
         return e.getMessage();
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public String runtimeException(RuntimeException e){
+        return e.getMessage();
+    }
+
+
+
 
 
 }
