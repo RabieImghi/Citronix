@@ -53,8 +53,13 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
         harvestDetailRepository.saveAll(harvestDetails);
     }
 
-    @Override
     public void deleteByHarvestId(Long id) {
         harvestDetailRepository.deleteByHarvestId(id);
     }
+
+    public void deleteByTreeId(Long id) {
+        List<HarvestDetail> lists = harvestDetailRepository.findByTreeId(id);
+        harvestDetailRepository.deleteAll(lists);
+    }
+
 }

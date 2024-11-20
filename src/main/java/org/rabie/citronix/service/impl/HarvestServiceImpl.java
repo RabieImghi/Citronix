@@ -9,6 +9,7 @@ import org.rabie.citronix.repository.HarvestRepository;
 import org.rabie.citronix.service.HarvestDetailService;
 import org.rabie.citronix.service.HarvestService;
 import org.rabie.citronix.service.SaleService;
+import org.rabie.citronix.service.TreeService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -20,10 +21,10 @@ import java.util.List;
 @Component("harvestService")
 public class HarvestServiceImpl implements HarvestService {
     private final HarvestRepository harvestRepository;
-    private final TreeServiceImpl treeService;
+    private final TreeService treeService;
     private final HarvestDetailService harvestDetailService;
     private final SaleService saleService;
-    public HarvestServiceImpl(HarvestRepository harvestRepository,TreeServiceImpl treeService,HarvestDetailService harvestDetailService, SaleService saleService) {
+    public HarvestServiceImpl(HarvestRepository harvestRepository,TreeService treeService,HarvestDetailService harvestDetailService, SaleService saleService) {
         this.harvestRepository = harvestRepository;
         this.treeService = treeService;
         this.harvestDetailService = harvestDetailService;
