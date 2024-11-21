@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 public interface SaleService {
     Sale save(Sale sale);
     Sale findById(Long id);
-    Sale update(Sale sale);
     void delete(Long id);
     Page<Sale> findAll(PageRequest pageRequest);
     void deleteByHarvestId(Long harvestId);

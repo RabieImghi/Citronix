@@ -4,9 +4,9 @@ import jakarta.validation.Valid;
 import org.rabie.citronix.domain.Harvest;
 import org.rabie.citronix.domain.Sale;
 import org.rabie.citronix.rest.mapper.SaleMapper;
-import org.rabie.citronix.rest.vm.request.sale.SaleSaveRequest;
-import org.rabie.citronix.rest.vm.request.sale.SaleUpdateRequest;
-import org.rabie.citronix.rest.vm.response.SaleResponse;
+import org.rabie.citronix.rest.vm.request.sale.SaleSaveRequestVM;
+import org.rabie.citronix.rest.vm.request.sale.SaleUpdateRequestVM;
+import org.rabie.citronix.rest.vm.response.SaleResponseVM;
 import org.rabie.citronix.service.HarvestService;
 import org.rabie.citronix.service.SaleService;
 import org.springframework.data.domain.Page;
@@ -30,24 +30,24 @@ public class SaleRest {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<SaleResponse> save(@Valid @RequestBody SaleSaveRequest saleSaveRequest) {
-        Harvest harvest = harvestService.findById(saleSaveRequest.getHarvestId());
+    public ResponseEntity<SaleResponseVM> save(@Valid @RequestBody SaleSaveRequestVM saleSaveRequestVM) {
+        Harvest harvest = harvestService.findById(saleSaveRequestVM.getHarvestId());
         if(harvest == null)
             throw new RuntimeException("Harvest not found");
         Sale sale = new Sale();
-        return saveAndUpdateSale(sale, saleSaveRequest.getSaleDate(), saleSaveRequest.getUnitPrice(), saleSaveRequest.getClient(), harvest);
+        return saveAndUpdateSale(sale, saleSaveRequestVM.getSaleDate(), saleSaveRequestVM.getUnitPrice(), saleSaveRequestVM.getClient(), harvest);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<SaleResponse> update(@Valid @RequestBody SaleUpdateRequest saleUpdateRequest) {
-        Harvest harvest = harvestService.findById(saleUpdateRequest.getHarvestId());
+    public ResponseEntity<SaleResponseVM> update(@Valid @RequestBody SaleUpdateRequestVM saleUpdateRequestVM) {
+        Harvest harvest = harvestService.findById(saleUpdateRequestVM.getHarvestId());
         if(harvest == null)
             throw new RuntimeException("Harvest not found");
-        Sale sale = saleService.findById(saleUpdateRequest.getId());
-        sale.setId(saleUpdateRequest.getId());
-        return saveAndUpdateSale(sale, saleUpdateRequest.getSaleDate(), saleUpdateRequest.getUnitPrice(), saleUpdateRequest.getClient(), harvest);
+        Sale sale = saleService.findById(saleUpdateRequestVM.getId());
+        sale.setId(saleUpdateRequestVM.getId());
+        return saveAndUpdateSale(sale, saleUpdateRequestVM.getSaleDate(), saleUpdateRequestVM.getUnitPrice(), saleUpdateRequestVM.getClient(), harvest);
     }
-    public ResponseEntity<SaleResponse> saveAndUpdateSale(Sale sale, LocalDate saleDate, Double unitPrice, String client, Harvest harvest) {
+    public ResponseEntity<SaleResponseVM> saveAndUpdateSale(Sale sale, LocalDate saleDate, Double unitPrice, String client, Harvest harvest) {
         sale.setSaleDate(saleDate);
         sale.setUnitPrice(unitPrice);
         sale.setClient(client);
@@ -64,7 +64,7 @@ public class SaleRest {
     }
 
     @GetMapping("/getAll")
-    public Page<SaleResponse> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public Page<SaleResponseVM> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Sale> sales = saleService.findAll(pageRequest);
         return sales.map(saleMapper::toSaleResponse);
@@ -76,5 +76,10 @@ public class SaleRest {
         if(sale == null)
             throw new RuntimeException("Sale not found");
         return sale.getUnitPrice() * sale.getHarvest().getTotalQuantity();
+    }
+    @GetMapping("/get/{id}")
+    public ResponseEntity<SaleResponseVM> get(@PathVariable Long id) {
+        Sale sale = saleService.findById(id);
+        return ResponseEntity.ok(saleMapper.toSaleResponse(sale));
     }
 }

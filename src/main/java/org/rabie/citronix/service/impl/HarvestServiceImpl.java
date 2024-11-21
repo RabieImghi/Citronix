@@ -1,15 +1,13 @@
 package org.rabie.citronix.service.impl;
 
+import org.rabie.citronix.domain.Field;
 import org.rabie.citronix.domain.Harvest;
 import org.rabie.citronix.domain.HarvestDetail;
 import org.rabie.citronix.domain.Tree;
 import org.rabie.citronix.domain.enums.Session;
 import org.rabie.citronix.exception.HarvestNullException;
 import org.rabie.citronix.repository.HarvestRepository;
-import org.rabie.citronix.service.HarvestDetailService;
-import org.rabie.citronix.service.HarvestService;
-import org.rabie.citronix.service.SaleService;
-import org.rabie.citronix.service.TreeService;
+import org.rabie.citronix.service.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -24,11 +22,13 @@ public class HarvestServiceImpl implements HarvestService {
     private final TreeService treeService;
     private final HarvestDetailService harvestDetailService;
     private final SaleService saleService;
-    public HarvestServiceImpl(HarvestRepository harvestRepository,TreeService treeService,HarvestDetailService harvestDetailService, SaleService saleService) {
+    private final FieldService fieldService;
+    public HarvestServiceImpl(HarvestRepository harvestRepository,TreeService treeService,HarvestDetailService harvestDetailService, SaleService saleService, FieldService fieldService) {
         this.harvestRepository = harvestRepository;
         this.treeService = treeService;
         this.harvestDetailService = harvestDetailService;
         this.saleService = saleService;
+        this.fieldService = fieldService;
     }
 
     public Harvest save(Harvest harvest, Long fieldId) {

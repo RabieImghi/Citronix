@@ -22,8 +22,7 @@ public class TreeServiceImpl implements TreeService {
         this.harvestDetailService = harvestDetailService;
     }
 
-        @Override
-        public Tree save(Tree tree) {
+    public Tree save(Tree tree) {
             if (tree == null)
                 throw new TreeNullException("fields is null");
             if(tree.getAge()>20)
@@ -52,7 +51,6 @@ public class TreeServiceImpl implements TreeService {
         return tree;
     }
 
-    @Override
     public Page<Tree> getAll(PageRequest pageRequest) {
         return treeRepository.findAll(pageRequest);
     }
@@ -61,7 +59,6 @@ public class TreeServiceImpl implements TreeService {
         return treeRepository.findByFieldId(fieldId);
     }
 
-    @Override
     public Tree getById(Long id) {
         return treeRepository.findById(id).orElse(null);
     }
@@ -69,5 +66,8 @@ public class TreeServiceImpl implements TreeService {
     public void deleteByFieldId(Long fieldId){
         List<Tree> trees = treeRepository.findByFieldId(fieldId);
         if(!trees.isEmpty()) treeRepository.deleteAll(trees);
+    }
+    public Tree findById(Long id) {
+        return treeRepository.findById(id).orElse(null);
     }
 }

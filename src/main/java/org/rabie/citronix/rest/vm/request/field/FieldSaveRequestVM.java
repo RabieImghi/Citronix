@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FieldSaveRequest {
+public class FieldSaveRequestVM {
     @NonNull @NotBlank
     private String name;
     @NotNull
