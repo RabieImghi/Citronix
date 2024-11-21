@@ -69,4 +69,12 @@ public class SaleRest {
         Page<Sale> sales = saleService.findAll(pageRequest);
         return sales.map(saleMapper::toSaleResponse);
     }
+
+    @GetMapping("income-calculation/{id}")
+    public Double calculateIncome(@PathVariable Long id) {
+        Sale sale = saleService.findById(id);
+        if(sale == null)
+            throw new RuntimeException("Sale not found");
+        return sale.getUnitPrice() * sale.getHarvest().getTotalQuantity();
+    }
 }

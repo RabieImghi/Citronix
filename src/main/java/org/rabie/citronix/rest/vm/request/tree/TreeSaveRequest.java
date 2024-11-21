@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class TreeSaveRequest {
     @NotNull
+    private String name;
+    @NotNull
     private LocalDate datePlantation;
     @NotNull
     private Long fieldId;

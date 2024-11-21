@@ -23,6 +23,12 @@ public class FieldServiceImpl implements FieldService {
     public Field save(Field field) {
         if (field==null)
             throw new FieldsNullException("fields is null");
+        if(field.getArea()<0.1)
+            throw new AreaOfFiledMustBeInfAreaOfFarmException("Area of filed must be inf 0.1");
+        if(field.getFarm().getArea()/2 < field.getArea())
+            throw new AreaOfFiledMustBeInfAreaOfFarmException("Area of filed must be inf 50% of area of farm");
+        if(field.getFarm().getFields().size()>=10)
+            throw new AreaOfFiledMustBeInfAreaOfFarmException("Number of fields must be inf 10 fields. You have already"+ field.getFarm().getFields().size() +" fields");
         List<Field> fields = fieldRepository.findByFarmId(field.getFarm().getId());
         double area = fields.stream().mapToDouble(Field::getArea).sum() + field.getArea();
         if(area>= field.getFarm().getArea())

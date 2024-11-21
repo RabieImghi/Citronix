@@ -12,6 +12,8 @@ public class TreeUpdateRequest {
     @NotNull
     private Long id;
     @NotNull
+    private String name;
+    @NotNull
     private LocalDate datePlantation;
     @NotNull
     private Long fieldId;
