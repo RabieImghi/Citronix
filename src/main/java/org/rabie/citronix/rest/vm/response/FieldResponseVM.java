@@ -9,9 +9,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class FieldResponse {
+public class FieldResponseVM {
     private Long id;
     private String name;
     private Double area;
-    private FarmResponse farm;
+    private FarmResponseVm farm;
 }

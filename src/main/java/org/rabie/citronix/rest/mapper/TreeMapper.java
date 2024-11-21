@@ -1,12 +1,10 @@
 package org.rabie.citronix.rest.mapper;
 
 import org.mapstruct.Mapper;
-import org.rabie.citronix.domain.Farm;
 import org.rabie.citronix.domain.Tree;
-import org.rabie.citronix.rest.vm.request.tree.TreeSaveRequest;
-import org.rabie.citronix.rest.vm.response.TreeResponse;
+import org.rabie.citronix.rest.vm.response.TreeResponseVM;
 
 @Mapper(componentModel = "spring")
 public interface TreeMapper {
-    TreeResponse toTreeResponse(Tree tree);
+    TreeResponseVM toTreeResponse(Tree tree);
 }

@@ -15,4 +15,5 @@ public interface HarvestDetailService {
     void saveAll(List<HarvestDetail> harvestDetails);
     void deleteByHarvestId(Long id);
     void deleteByTreeId(Long id);
+    HarvestDetail findById(Long id);
 }

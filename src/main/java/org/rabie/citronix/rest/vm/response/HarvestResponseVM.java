@@ -4,13 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.rabie.citronix.domain.enums.Session;
 
-@Getter
+import java.time.LocalDate;
+
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HarvestDetailResponse {
+public class HarvestResponseVM {
     private Long id;
-    private HarvestResponse harvest;
-    private TreeResponse tree;
+    private Session session;
+    private LocalDate harvestDate;
+    private Double totalQuantity;
 }

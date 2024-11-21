@@ -18,7 +18,7 @@ public class FarmSpecification {
             }
 
             if (searchDto.getName() != null && !searchDto.getName().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("name"), searchDto.getName()));
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + searchDto.getName().toLowerCase() + "%"));
             }
 
             if (searchDto.getLocation() != null && !searchDto.getLocation().isEmpty()) {

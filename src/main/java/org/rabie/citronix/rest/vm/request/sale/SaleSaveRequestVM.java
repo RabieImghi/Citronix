@@ -12,9 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SaleUpdateRequest {
-    @NotNull
-    private Long id;
+public class SaleSaveRequestVM {
     @NotNull
     private LocalDate saleDate;
     @NotNull

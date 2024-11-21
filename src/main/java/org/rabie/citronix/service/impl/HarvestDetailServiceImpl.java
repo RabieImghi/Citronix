@@ -30,7 +30,6 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
         return harvestDetailRepository.save(harvestDetail);
     }
 
-    @Override
     public List<HarvestDetail> getListDetail(List<Tree> trees) {
         List<HarvestDetail> harvestDetails = new ArrayList<>();
         for (Tree tree : trees) {
@@ -42,7 +41,6 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
         return harvestDetails;
     }
 
-    @Override
     public Boolean existsByHarvestAndTree(Long harvestId, Long treeId) {
         return harvestDetailRepository.existsByHarvestIdAndTreeId(harvestId, treeId);
     }
@@ -60,6 +58,9 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
     public void deleteByTreeId(Long id) {
         List<HarvestDetail> lists = harvestDetailRepository.findByTreeId(id);
         harvestDetailRepository.deleteAll(lists);
+    }
+    public HarvestDetail findById(Long id) {
+        return harvestDetailRepository.findById(id).orElse(null);
     }
 
 }

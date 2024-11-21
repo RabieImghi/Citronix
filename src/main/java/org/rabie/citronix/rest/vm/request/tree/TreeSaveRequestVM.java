@@ -8,9 +8,9 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TreeUpdateRequest {
+public class TreeSaveRequestVM {
     @NotNull
-    private Long id;
+    private String name;
     @NotNull
     private LocalDate datePlantation;
     @NotNull

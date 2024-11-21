@@ -5,18 +5,18 @@ import org.rabie.citronix.domain.Field;
 import org.rabie.citronix.domain.Tree;
 import org.rabie.citronix.exception.FieldsNullException;
 import org.rabie.citronix.rest.mapper.TreeMapper;
-import org.rabie.citronix.rest.vm.request.tree.TreeSaveRequest;
-import org.rabie.citronix.rest.vm.request.tree.TreeUpdateRequest;
-import org.rabie.citronix.rest.vm.response.TreeResponse;
+import org.rabie.citronix.rest.vm.request.tree.TreeSaveRequestVM;
+import org.rabie.citronix.rest.vm.request.tree.TreeUpdateRequestVM;
+import org.rabie.citronix.rest.vm.response.TreeResponseVM;
 import org.rabie.citronix.service.FieldService;
 import org.rabie.citronix.service.TreeService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/tree")
@@ -32,15 +32,15 @@ public class TreeRest {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<TreeResponse> save(@Valid @RequestBody TreeSaveRequest treeSaveRequest) {
+    public ResponseEntity<TreeResponseVM> save(@Valid @RequestBody TreeSaveRequestVM treeSaveRequestVM) {
         Tree tree = new Tree();
-        return saveAndUpdateTree(tree, treeSaveRequest.getDatePlantation(), treeSaveRequest.getFieldId());
+        return saveAndUpdateTree(tree, treeSaveRequestVM.getName(), treeSaveRequestVM.getDatePlantation(), treeSaveRequestVM.getFieldId());
     }
     @PutMapping("/update")
-    public ResponseEntity<TreeResponse> update(@Valid @RequestBody TreeUpdateRequest updateRequest) {
+    public ResponseEntity<TreeResponseVM> update(@Valid @RequestBody TreeUpdateRequestVM updateRequest) {
         Tree tree = new Tree();
         tree.setId(updateRequest.getId());
-        return saveAndUpdateTree(tree, updateRequest.getDatePlantation(), updateRequest.getFieldId());
+        return saveAndUpdateTree(tree,updateRequest.getName(),  updateRequest.getDatePlantation(), updateRequest.getFieldId());
     }
 
     @DeleteMapping("/delete/{id}")
@@ -51,33 +51,46 @@ public class TreeRest {
 
 
     @GetMapping("/getAll")
-    public Page<TreeResponse> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public List<TreeResponseVM> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
-        Page<Tree> trees = treeService.getAll(pageRequest);
-        return trees.map(treeMapper::toTreeResponse).map(tree -> {
-            tree.setAge(tree.getAge());
-            if(tree.getAge()< 3 ) tree.setTreeType("young tree");
-            else if(tree.getAge() < 10) tree.setTreeType("mature tree");
-            else tree.setTreeType("old tree");
-            tree.setProductivityMonthly(tree.getProductivityMonthly());
-            return tree;
-        });
+        List<Tree> trees = treeService.getAll(pageRequest).getContent();
+        return trees.stream().map(tree->{
+            TreeResponseVM treeResponseVM = treeMapper.toTreeResponse(tree);
+            treeResponseVM.setAge(tree.getAge());
+            if(tree.getAge()< 3 ) treeResponseVM.setTreeType("young tree");
+            else if(tree.getAge() < 10) treeResponseVM.setTreeType("mature tree");
+            else treeResponseVM.setTreeType("old tree");
+            treeResponseVM.setProductivityMonthly(tree.getProductivity());
+            return treeResponseVM;
+        }).toList();
     }
 
 
 
-    private ResponseEntity<TreeResponse> saveAndUpdateTree(Tree tree, LocalDate datePlantation, Long fieldId) {
+    private ResponseEntity<TreeResponseVM> saveAndUpdateTree(Tree tree, String name, LocalDate datePlantation, Long fieldId) {
         tree.setDatePlantation(datePlantation);
+        tree.setName(name);
         Field field = fieldService.findById(fieldId);
         if(field == null) throw new FieldsNullException("Field not found");
         tree.setField(field);
-        TreeResponse treeResponse = treeMapper.toTreeResponse(treeService.save(tree));
-        treeResponse.setAge(tree.getAge());
-        if(treeResponse.getAge()< 3 ) treeResponse.setTreeType("young tree");
-        else if(treeResponse.getAge() < 10) treeResponse.setTreeType("mature tree");
-        else treeResponse.setTreeType("old tree");
-        treeResponse.setProductivityMonthly(tree.getProductivity()*4);
-        return ResponseEntity.ok(treeResponse);
+        TreeResponseVM treeResponseVM = treeMapper.toTreeResponse(treeService.save(tree));
+        return treeToResponseVmOfTree(tree, treeResponseVM);
+    }
+
+    private ResponseEntity<TreeResponseVM> treeToResponseVmOfTree(Tree tree, TreeResponseVM treeResponseVM) {
+        treeResponseVM.setAge(tree.getAge());
+        if(treeResponseVM.getAge()< 3 ) treeResponseVM.setTreeType("young tree");
+        else if(treeResponseVM.getAge() < 10) treeResponseVM.setTreeType("mature tree");
+        else treeResponseVM.setTreeType("old tree");
+        treeResponseVM.setProductivityMonthly(tree.getProductivity()*4);
+        return ResponseEntity.ok(treeResponseVM);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<TreeResponseVM> get(@PathVariable Long id) {
+        Tree tree = treeService.findById(id);
+        TreeResponseVM treeResponseVM = treeMapper.toTreeResponse(tree);
+        return treeToResponseVmOfTree(tree, treeResponseVM);
     }
 
 }

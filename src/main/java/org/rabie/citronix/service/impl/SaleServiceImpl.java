@@ -26,9 +26,6 @@ public class SaleServiceImpl implements SaleService {
         return saleRepository.findById(id).orElseThrow(() -> new RuntimeException("Sale not found"));
     }
 
-    public Sale update(Sale sale) {
-        return null;
-    }
 
     public void delete(Long id) {
         Sale sale = saleRepository.findById(id).orElseThrow(() -> new RuntimeException("Sale not found"));
@@ -39,7 +36,6 @@ public class SaleServiceImpl implements SaleService {
         return saleRepository.findAll(pageRequest);
     }
 
-    @Override
     public void deleteByHarvestId(Long harvestId) {
         saleRepository.deleteByHarvestId(harvestId);
     }

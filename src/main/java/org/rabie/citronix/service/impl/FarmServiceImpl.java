@@ -26,16 +26,13 @@ public class FarmServiceImpl implements FarmService {
         this.farmRepository = farmRepository;
         this.fieldService = fieldService;
     }
-
     public Farm save(Farm farm) {
         if(farm==null) throw new FarmNullException("Farm is null");
         return farmRepository.save(farm);
     }
-
     public Page<Farm> getAll(PageRequest pageRequest){
         return farmRepository.findAll(pageRequest);
     }
-
     public Page<Farm> searchFarms(SearchFarmDto searchDto, PageRequest pageRequest) {
         return farmRepository.findAll(FarmSpecification.getUsersByCriteria(searchDto), pageRequest);
     }

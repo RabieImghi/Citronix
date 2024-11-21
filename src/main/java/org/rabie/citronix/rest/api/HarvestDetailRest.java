@@ -5,18 +5,13 @@ import org.rabie.citronix.domain.HarvestDetail;
 import org.rabie.citronix.domain.Tree;
 import org.rabie.citronix.exception.HarvestDetailAlreadyExistException;
 import org.rabie.citronix.rest.mapper.HarvestDetailMapper;
-import org.rabie.citronix.rest.vm.request.Harvest.HarvestDetailRequest;
-import org.rabie.citronix.rest.vm.response.HarvestDetailResponse;
+import org.rabie.citronix.rest.vm.request.Harvest.HarvestDetailRequestVM;
+import org.rabie.citronix.rest.vm.response.HarvestDetailResponseVM;
 import org.rabie.citronix.service.HarvestDetailService;
-import org.rabie.citronix.service.HarvestService;
-import org.rabie.citronix.service.impl.HarvestDetailServiceImpl;
 import org.rabie.citronix.service.impl.HarvestServiceImpl;
 import org.rabie.citronix.service.impl.TreeServiceImpl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/harvest-detail")
@@ -33,9 +28,9 @@ public class HarvestDetailRest {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<HarvestDetailResponse> save(@RequestBody HarvestDetailRequest harvestDetailRequest) {
-        Harvest harvest = harvestService.findById(harvestDetailRequest.getHarvestId());
-        Tree tree = treeService.getById(harvestDetailRequest.getTreeId());
+    public ResponseEntity<HarvestDetailResponseVM> save(@RequestBody HarvestDetailRequestVM harvestDetailRequestVM) {
+        Harvest harvest = harvestService.findById(harvestDetailRequestVM.getHarvestId());
+        Tree tree = treeService.getById(harvestDetailRequestVM.getTreeId());
         if(harvestDetailService.existsByHarvestAndTree(harvest.getId(), tree.getId()))
             throw new HarvestDetailAlreadyExistException("Harvest detail already exists");
         HarvestDetail harvestDetail = new HarvestDetail();
@@ -45,6 +40,13 @@ public class HarvestDetailRest {
         harvest.setTotalQuantity(harvest.getTotalQuantity() + harvestDetail.getQuantityHarvested());
         harvestService.save(harvest,tree.getField().getId());
         return ResponseEntity.ok(harvestDetailMapper.toHarvestDetailResponse(harvestDetailService.save(harvestDetail)));
+    }
+
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<HarvestDetailResponseVM> get(@PathVariable Long id){
+        HarvestDetail harvestDetail = harvestDetailService.findById(id);
+        return ResponseEntity.ok(harvestDetailMapper.toHarvestDetailResponse(harvestDetail));
     }
 
 

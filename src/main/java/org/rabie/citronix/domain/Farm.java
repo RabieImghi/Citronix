@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 //@JsonIgnoreProperties(value = {"fields"},allowSetters = true)
 public class Farm {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String location;
