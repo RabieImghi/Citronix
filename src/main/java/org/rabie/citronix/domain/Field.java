@@ -23,4 +23,5 @@ public class Field {
     private Farm farm;
     @OneToMany(mappedBy = "field")
     private List<Tree> trees;
+
 }

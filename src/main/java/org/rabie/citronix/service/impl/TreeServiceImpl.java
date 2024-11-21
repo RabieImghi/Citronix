@@ -1,12 +1,9 @@
 package org.rabie.citronix.service.impl;
 
-import org.rabie.citronix.domain.HarvestDetail;
 import org.rabie.citronix.domain.Tree;
 import org.rabie.citronix.exception.TreeNullException;
 import org.rabie.citronix.repository.TreeRepository;
-import org.rabie.citronix.rest.api.TreeRest;
 import org.rabie.citronix.service.HarvestDetailService;
-import org.rabie.citronix.service.HarvestService;
 import org.rabie.citronix.service.TreeService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
