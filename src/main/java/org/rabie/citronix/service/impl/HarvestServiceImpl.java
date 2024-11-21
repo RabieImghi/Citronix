@@ -34,7 +34,7 @@ public class HarvestServiceImpl implements HarvestService {
     public Harvest save(Harvest harvest, Long fieldId) {
         if (harvest == null) throw new HarvestNullException("Harvest cannot be null");
         harvest.setSession(getSessionFromDate(harvest.getHarvestDate()));
-        if(existsBySessionAndHarvestDate(harvest.getSession(), harvest.getHarvestDate()))
+        if(existsBySessionAndHarvestDate(harvest.getSession(), harvest.getHarvestDate()) && harvest.getId()==null)
             throw new HarvestNullException("Harvest already exists for this session");
         if(fieldId!=null){
             return saveHarvestWithDetails(fieldId, harvest);

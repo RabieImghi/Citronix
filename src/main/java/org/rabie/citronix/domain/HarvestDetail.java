@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class HarvestDetail {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double quantityHarvested;
     @ManyToOne
