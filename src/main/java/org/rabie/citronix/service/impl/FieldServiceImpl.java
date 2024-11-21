@@ -16,8 +16,11 @@ import java.util.List;
 @Component("fieldService")
 public class FieldServiceImpl implements FieldService {
     private final FieldRepository fieldRepository;
-    public FieldServiceImpl(FieldRepository fieldRepository) {
+    private final TreeServiceImpl treeService;
+
+    public FieldServiceImpl(FieldRepository fieldRepository, TreeServiceImpl treeService) {
         this.fieldRepository = fieldRepository;
+        this.treeService = treeService;
     }
 
     public Field save(Field field) {
@@ -39,6 +42,7 @@ public class FieldServiceImpl implements FieldService {
     public Field delete(Field field) {
         if (field==null)
             throw new FieldsNullException("fields is null");
+        treeService.deleteByFieldId(field.getId());
         fieldRepository.delete(field);
         return field;
     }

@@ -10,21 +10,30 @@ import org.rabie.citronix.domain.Field;
 import org.rabie.citronix.exception.AreaOfFiledMustBeInfAreaOfFarmException;
 import org.rabie.citronix.exception.FieldsNullException;
 import org.rabie.citronix.repository.FieldRepository;
-import org.rabie.citronix.service.FieldService;
 import org.rabie.citronix.service.impl.FieldServiceImpl;
+import org.rabie.citronix.service.impl.TreeServiceImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class FieldServiceImplTest {
     @Mock
     private FieldRepository fieldRepository;
 
+    @Mock
+    private TreeServiceImpl treeService;
+
     @InjectMocks
     private FieldServiceImpl fieldService;
+
+
+
     private Farm farm;
     private Field field;
 
@@ -45,6 +54,7 @@ public class FieldServiceImplTest {
             fields.add(field);
         }
         farm.setFields(fields);
+
     }
 
 
@@ -84,10 +94,40 @@ public class FieldServiceImplTest {
         field.setArea(8.);
         when(fieldRepository.findByFarmId(field.getFarm().getId())).thenReturn(field.getFarm().getFields());
         when(fieldRepository.save(field)).thenReturn(field);
+        Field fieldSaved = fieldService.save(field);
+        assertNotNull(fieldSaved);
     }
 
+    @Test
+    void testDeleteFieldsWithNullField(){
+        assertThrows(FieldsNullException.class, () -> fieldService.delete(null));
+    }
 
+    @Test
+    void testDeleteFieldsWithSuccess(){
+        doNothing().when(treeService).deleteByFieldId(field.getId());
+        doNothing().when(fieldRepository).delete(field);
+        fieldService.delete(field);
+        verify(treeService).deleteByFieldId(field.getId());
+        verify(fieldRepository).delete(field);
+    }
 
+    @Test
+    void testGetAllFields() {
+        Page<Field> page = mock(Page.class);
+        when(page.getContent()).thenReturn(field.getFarm().getFields());
+        when(fieldRepository.findAll(any(PageRequest.class))).thenReturn(page);
+        List<Field> fields = fieldService.getAll(PageRequest.of(0, 10)).getContent();
+        assertFalse(fields.isEmpty());
+    }
+
+    @Test
+    void testFindFieldByIdWithIdNotExist(){
+        field.setId(1200L);
+        when(fieldRepository.findById(field.getId())).thenReturn(Optional.of(field));
+        field = fieldService.findById(field.getId());
+        assertNotNull(field);
+    }
 
 
 
