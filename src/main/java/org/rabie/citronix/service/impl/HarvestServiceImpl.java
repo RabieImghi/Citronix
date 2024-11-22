@@ -11,10 +11,12 @@ import org.rabie.citronix.service.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 
 @Component("harvestService")
 public class HarvestServiceImpl implements HarvestService {
@@ -22,19 +24,17 @@ public class HarvestServiceImpl implements HarvestService {
     private final TreeService treeService;
     private final HarvestDetailService harvestDetailService;
     private final SaleService saleService;
-    private final FieldService fieldService;
-    public HarvestServiceImpl(HarvestRepository harvestRepository,TreeService treeService,HarvestDetailService harvestDetailService, SaleService saleService, FieldService fieldService) {
+    public HarvestServiceImpl(HarvestRepository harvestRepository,TreeService treeService,HarvestDetailService harvestDetailService, SaleService saleService) {
         this.harvestRepository = harvestRepository;
         this.treeService = treeService;
         this.harvestDetailService = harvestDetailService;
         this.saleService = saleService;
-        this.fieldService = fieldService;
     }
 
     public Harvest save(Harvest harvest, Long fieldId) {
         if (harvest == null) throw new HarvestNullException("Harvest cannot be null");
         harvest.setSession(getSessionFromDate(harvest.getHarvestDate()));
-        if(existsBySessionAndHarvestDate(harvest.getSession(), harvest.getHarvestDate()) && harvest.getId()==null)
+        if(harvestRepository.existsByFieldIdAndHarvestSeasonAndHarvestYear(fieldId,harvest.getSession(), YearMonth.from(harvest.getHarvestDate()).getYear()) && harvest.getId()==null)
             throw new HarvestNullException("Harvest already exists for this session");
         if(fieldId!=null){
             return saveHarvestWithDetails(fieldId, harvest);
@@ -55,9 +55,6 @@ public class HarvestServiceImpl implements HarvestService {
         harvestDetailService.saveAll(harvestDetails);
         return savedHarvest;
     }
-    public Boolean existsBySessionAndHarvestDate(Session session, LocalDate harvestDate) {
-        return harvestRepository.existsBySessionAndHarvestDate(session, harvestDate);
-    }
     public Session getSessionFromDate(LocalDate date) {
         int month = date.getMonthValue();
         return switch (month) {
@@ -72,6 +69,7 @@ public class HarvestServiceImpl implements HarvestService {
         return harvestRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public void delete(Long id) {
         Harvest harvest = findById(id);
         if(harvest == null)
