@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Setter
 public class TreeResponseVM {
     private Long id;
+    private String name;
     private LocalDate datePlantation;
     private FieldResponseVM field;
     private Long age;
