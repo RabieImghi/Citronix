@@ -44,6 +44,11 @@ public class HarvestServiceImpl implements HarvestService {
 
     public Harvest saveHarvestWithDetails(Long fieldId, Harvest harvest) {
         List<Tree> trees = treeService.getByFieldId(fieldId);
+        Tree lastCreatedTree = trees.stream().max((tree1, tree2) -> tree1.getDatePlantation().compareTo(tree2.getDatePlantation())).orElse(null);
+        if(lastCreatedTree != null && lastCreatedTree.getDatePlantation().isAfter(harvest.getHarvestDate()))
+            throw new HarvestNullException("Harvest date must be after the last tree plantation date");
+
+
         List<HarvestDetail> harvestDetails = harvestDetailService.getListDetail(trees);
         double totalQuantity = harvestDetails.stream().map(HarvestDetail::getQuantityHarvested).reduce(0., Double::sum);
         harvest.setTotalQuantity(totalQuantity);
