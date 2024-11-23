@@ -1,27 +1,22 @@
-package org.rabie.citronix.domain;
+package org.rabie.citronix.rest.vm.response;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.rabie.citronix.domain.enums.Session;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class Harvest {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class HarvestResponseVM {
     private Long id;
     private Session session;
     private LocalDate harvestDate;
     private Double totalQuantity;
-    @OneToMany(mappedBy = "harvest")
-    private List<HarvestDetail> harvestDetails;
 }
