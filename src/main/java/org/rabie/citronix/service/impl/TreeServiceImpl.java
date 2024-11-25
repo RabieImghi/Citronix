@@ -65,7 +65,7 @@ public class TreeServiceImpl implements TreeService {
 
     public void deleteByFieldId(Long fieldId){
         List<Tree> trees = treeRepository.findByFieldId(fieldId);
-        if(!trees.isEmpty()) treeRepository.deleteAll(trees);
+        if(!trees.isEmpty()) trees.forEach(tree -> this.deleteById(tree.getId()));
     }
     public Tree findById(Long id) {
         return treeRepository.findById(id).orElse(null);
