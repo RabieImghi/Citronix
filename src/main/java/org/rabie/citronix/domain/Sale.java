@@ -21,6 +21,7 @@ public class Sale {
     private LocalDate saleDate;
     private Double unitPrice;
     private String client;
-    @OneToOne
+    private Double quantity;
+    @ManyToOne
     private Harvest harvest;
 }

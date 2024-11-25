@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1732530891560-1
+      author: Youcode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: quantity
+                  type: DOUBLE
+            tableName: sale
+
