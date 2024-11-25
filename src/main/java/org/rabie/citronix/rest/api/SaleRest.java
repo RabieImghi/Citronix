@@ -43,7 +43,7 @@ public class SaleRest {
         Harvest harvest = harvestService.findById(saleUpdateRequestVM.getHarvestId());
         if(harvest == null)
             throw new RuntimeException("Harvest not found");
-        Sale sale = saleService.findById(saleUpdateRequestVM.getId());
+        Sale sale = new Sale();
         sale.setId(saleUpdateRequestVM.getId());
         return saveAndUpdateSale(sale, saleUpdateRequestVM.getSaleDate(), saleUpdateRequestVM.getUnitPrice(), saleUpdateRequestVM.getClient(), harvest,saleUpdateRequestVM.getQuantity());
     }
