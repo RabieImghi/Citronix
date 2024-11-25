@@ -4,8 +4,10 @@ import org.rabie.citronix.domain.Sale;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SaleRepository extends JpaRepository<Sale,Long> {
-    Boolean existsByHarvestId(Long harvestId);
+    List<Sale> findByHarvestId(Long harvestId);
     void deleteByHarvestId(Long harvestId);
 }

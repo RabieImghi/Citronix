@@ -22,14 +22,15 @@ public class SaleServiceImpl implements SaleService {
     public Sale save(Sale sale) {
         if(sale == null)
             throw new RuntimeException("Sale cannot be null");
-
-        sale = saleRepository.save(sale);
         Harvest harvest = harvestService.findById(sale.getHarvest().getId());
-        if(harvest.getTotalQuantity() < sale.getQuantity())
+        double totalQuantity = harvest.getSales().stream().map(Sale::getQuantity).reduce(0.0, Double::sum);
+        if(sale.getId()!=null){
+            Sale sale1 = saleRepository.findById(sale.getId()).orElseThrow(() -> new RuntimeException("Sale not found"));
+            totalQuantity -= sale1.getQuantity();
+        }
+        if(totalQuantity +  sale.getQuantity() > harvest.getTotalQuantity())
             throw new RuntimeException("Sale quantity cannot be greater than harvest quantity");
-        harvest.setTotalQuantity(harvest.getTotalQuantity() - sale.getQuantity());
-        harvestService.save(harvest, null);
-        return sale;
+        return saleRepository.save(sale);
     }
 
     public Sale findById(Long id) {
