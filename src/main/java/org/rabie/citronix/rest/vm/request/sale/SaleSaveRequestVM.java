@@ -18,6 +18,8 @@ public class SaleSaveRequestVM {
     @NotNull
     private Double unitPrice;
     @NotNull
+    private Double quantity;
+    @NotNull
     private String client;
     @NotNull
     private Long harvestId;

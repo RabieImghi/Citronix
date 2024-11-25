@@ -24,4 +24,6 @@ public class Harvest {
     private Double totalQuantity;
     @OneToMany(mappedBy = "harvest")
     private List<HarvestDetail> harvestDetails;
+    @OneToMany(mappedBy = "harvest")
+    private List<Sale> sales;
 }
