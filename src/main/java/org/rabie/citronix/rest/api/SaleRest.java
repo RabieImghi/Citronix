@@ -35,7 +35,7 @@ public class SaleRest {
         if(harvest == null)
             throw new RuntimeException("Harvest not found");
         Sale sale = new Sale();
-        return saveAndUpdateSale(sale, saleSaveRequestVM.getSaleDate(), saleSaveRequestVM.getUnitPrice(), saleSaveRequestVM.getClient(), harvest);
+        return saveAndUpdateSale(sale, saleSaveRequestVM.getSaleDate(), saleSaveRequestVM.getUnitPrice(), saleSaveRequestVM.getClient(), harvest,saleSaveRequestVM.getQuantity());
     }
 
     @PutMapping("/update")
@@ -45,13 +45,14 @@ public class SaleRest {
             throw new RuntimeException("Harvest not found");
         Sale sale = saleService.findById(saleUpdateRequestVM.getId());
         sale.setId(saleUpdateRequestVM.getId());
-        return saveAndUpdateSale(sale, saleUpdateRequestVM.getSaleDate(), saleUpdateRequestVM.getUnitPrice(), saleUpdateRequestVM.getClient(), harvest);
+        return saveAndUpdateSale(sale, saleUpdateRequestVM.getSaleDate(), saleUpdateRequestVM.getUnitPrice(), saleUpdateRequestVM.getClient(), harvest,saleUpdateRequestVM.getQuantity());
     }
-    public ResponseEntity<SaleResponseVM> saveAndUpdateSale(Sale sale, LocalDate saleDate, Double unitPrice, String client, Harvest harvest) {
+    public ResponseEntity<SaleResponseVM> saveAndUpdateSale(Sale sale, LocalDate saleDate, Double unitPrice, String client, Harvest harvest,Double quantity) {
         sale.setSaleDate(saleDate);
         sale.setUnitPrice(unitPrice);
         sale.setClient(client);
         sale.setHarvest(harvest);
+        sale.setQuantity(quantity);
         sale = saleService.save(sale);
         return ResponseEntity.ok(saleMapper.toSaleResponse(sale));
     }
