@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/citronix
-    username: citronix
-    password:
+    url: jdbc:postgresql://localhost:5433/sonar
+    username: sonar
+    password: sonar
     driver-class-name: org.postgresql.Driver
 
   jpa:
