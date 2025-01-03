@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TreeUpdateRequest {
+public class TreeUpdateRequestVM {
     @NotNull
     private Long id;
     @NotNull

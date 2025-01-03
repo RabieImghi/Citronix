@@ -5,9 +5,9 @@ import org.rabie.citronix.domain.Farm;
 import org.rabie.citronix.domain.Field;
 import org.rabie.citronix.exception.FieldsNullException;
 import org.rabie.citronix.rest.mapper.FieldMapper;
-import org.rabie.citronix.rest.vm.request.field.FieldSaveRequest;
-import org.rabie.citronix.rest.vm.request.field.FieldUpdateRequest;
-import org.rabie.citronix.rest.vm.response.FieldResponse;
+import org.rabie.citronix.rest.vm.request.field.FieldSaveRequestVM;
+import org.rabie.citronix.rest.vm.request.field.FieldUpdateRequestVM;
+import org.rabie.citronix.rest.vm.response.FieldResponseVM;
 import org.rabie.citronix.service.FarmService;
 import org.rabie.citronix.service.FieldService;
 import org.springframework.data.domain.Page;
@@ -29,14 +29,14 @@ public class FieldRest {
 
 
     @PostMapping("save")
-    public FieldResponse save(@Valid @RequestBody FieldSaveRequest fieldSaveRequest){
+    public FieldResponseVM save(@Valid @RequestBody FieldSaveRequestVM fieldSaveRequestVM){
         Field field = new Field();
-        return saveAndUpdateField(field, fieldSaveRequest.getName(), fieldSaveRequest.getArea(), fieldSaveRequest.getFarmId());
+        return saveAndUpdateField(field, fieldSaveRequestVM.getName(), fieldSaveRequestVM.getArea(), fieldSaveRequestVM.getFarmId());
     }
 
 
     @DeleteMapping("delete/{id}")
-    public FieldResponse delete(@PathVariable Long id){
+    public FieldResponseVM delete(@PathVariable Long id){
         Field field = fieldService.findById(id);
         if (field==null) throw new FieldsNullException("Field not found");
         field = fieldService.delete(field);
@@ -44,13 +44,13 @@ public class FieldRest {
     }
 
     @PutMapping("update")
-    public FieldResponse update(@Valid @RequestBody FieldUpdateRequest fieldUpdateRequest){
+    public FieldResponseVM update(@Valid @RequestBody FieldUpdateRequestVM fieldUpdateRequestVM){
         Field field = new Field();
-        field.setId(fieldUpdateRequest.getId());
-        return saveAndUpdateField(field, fieldUpdateRequest.getName(), fieldUpdateRequest.getArea(), fieldUpdateRequest.getFarmId());
+        field.setId(fieldUpdateRequestVM.getId());
+        return saveAndUpdateField(field, fieldUpdateRequestVM.getName(), fieldUpdateRequestVM.getArea(), fieldUpdateRequestVM.getFarmId());
     }
 
-    private FieldResponse saveAndUpdateField(Field field, String name, Double area, Long farmId) {
+    private FieldResponseVM saveAndUpdateField(Field field, String name, Double area, Long farmId) {
         field.setName(name);
         field.setArea(area);
         Farm farm = farmService.findById(farmId);
@@ -61,10 +61,17 @@ public class FieldRest {
     }
 
     @GetMapping("getAll")
-    public Page<FieldResponse> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size ){
+    public Page<FieldResponseVM> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size ){
         PageRequest pageRequest = PageRequest.of(page,size);
         Page<Field> fields = fieldService.getAll(pageRequest);
         return fields.map(fieldMapper::toFieldResponse);
+    }
+
+    @GetMapping("get/{id}")
+    public FieldResponseVM get(@PathVariable Long id){
+        Field field = fieldService.findById(id);
+        if (field==null) throw new FieldsNullException("Field not found");
+        return fieldMapper.toFieldResponse(field);
     }
 
 

@@ -10,8 +10,11 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FarmSaveRequest {
-    @NonNull @NotBlank
+public class FarmUpdateRequestVM {
+    @NotNull
+    private Long id;
+    @NonNull
+    @NotBlank
     private String name;
     @NonNull @NotBlank
     private String location;

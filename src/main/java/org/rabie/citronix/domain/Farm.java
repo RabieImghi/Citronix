@@ -15,7 +15,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@JsonIgnoreProperties(value = {"fields"},allowSetters = true)
 public class Farm {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

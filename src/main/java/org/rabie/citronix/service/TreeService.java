@@ -15,4 +15,5 @@ public interface TreeService {
     List<Tree> getByFieldId(Long fieldId);
     Tree getById(Long id);
     void deleteByFieldId(Long fieldId);
+    Tree findById(Long id);
 }

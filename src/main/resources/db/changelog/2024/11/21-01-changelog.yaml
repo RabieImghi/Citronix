@@ -1,6 +1,10 @@
 databaseChangeLog:
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-1
+=======
+      id: 1732228160067-1
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -28,7 +32,11 @@ databaseChangeLog:
                   type: DATE
             tableName: farm
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-2
+=======
+      id: 1732228160067-2
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -53,7 +61,11 @@ databaseChangeLog:
                   type: BIGINT
             tableName: field
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-3
+=======
+      id: 1732228160067-3
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -78,7 +90,11 @@ databaseChangeLog:
                   type: DOUBLE
             tableName: harvest
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-4
+=======
+      id: 1732228160067-4
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -103,7 +119,11 @@ databaseChangeLog:
                   type: BIGINT
             tableName: harvest_detail
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-5
+=======
+      id: 1732228160067-5
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -131,7 +151,11 @@ databaseChangeLog:
                   type: BIGINT
             tableName: sale
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-6
+=======
+      id: 1732228160067-6
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -156,7 +180,11 @@ databaseChangeLog:
                   type: BIGINT
             tableName: tree
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-7
+=======
+      id: 1732228160067-7
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -167,7 +195,11 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: farm
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-8
+=======
+      id: 1732228160067-8
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -178,7 +210,11 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: harvest
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-9
+=======
+      id: 1732228160067-9
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -189,7 +225,11 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: tree
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-10
+=======
+      id: 1732228160067-10
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -200,7 +240,11 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: harvest
   - changeSet:
+<<<<<<< HEAD
       id: 1732224198658-11
+=======
+      id: 1732228160067-11
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:

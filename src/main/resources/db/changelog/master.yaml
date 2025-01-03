@@ -1,3 +1,9 @@
 databaseChangeLog:
   - include:
+<<<<<<< HEAD
       file: db/changelog/2025/01/03-01-changelog.yaml
+=======
+      file: db/changelog/2024/11/21-01-changelog.yaml
+  - include:
+      file: db/changelog/2024/11/25-01-changelog.yaml
+>>>>>>> 271b9ff7741a9506a0ad5b540a3a75dfed24e7a6

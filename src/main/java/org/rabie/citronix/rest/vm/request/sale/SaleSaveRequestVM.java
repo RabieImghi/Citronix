@@ -12,11 +12,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SaleSaveRequest {
+public class SaleSaveRequestVM {
     @NotNull
     private LocalDate saleDate;
     @NotNull
     private Double unitPrice;
+    @NotNull
+    private Double quantity;
     @NotNull
     private String client;
     @NotNull

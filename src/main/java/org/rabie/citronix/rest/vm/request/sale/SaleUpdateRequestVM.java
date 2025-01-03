@@ -1,5 +1,6 @@
-package org.rabie.citronix.rest.vm.response;
+package org.rabie.citronix.rest.vm.request.sale;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,16 +8,21 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaleResponse {
+@Getter
+@Setter
+public class SaleUpdateRequestVM {
+    @NotNull
     private Long id;
+    @NotNull
     private LocalDate saleDate;
+    @NotNull
     private Double unitPrice;
+    @NotNull
+    private Double quantity;
+    @NotNull
     private String client;
-    private HarvestResponse harvest;
-
-
+    @NotNull
+    private Long harvestId;
 }

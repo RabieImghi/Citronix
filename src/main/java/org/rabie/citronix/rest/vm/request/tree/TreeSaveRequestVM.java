@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TreeSaveRequest {
+public class TreeSaveRequestVM {
     @NotNull
     private String name;
     @NotNull

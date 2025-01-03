@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FarmResponse {
+public class FarmResponseVm {
     private Long id;
     private String name;
     private String location;

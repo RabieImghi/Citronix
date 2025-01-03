@@ -1,22 +1,22 @@
 package org.rabie.citronix.service.impl;
 
+import org.rabie.citronix.domain.Field;
 import org.rabie.citronix.domain.Harvest;
 import org.rabie.citronix.domain.HarvestDetail;
 import org.rabie.citronix.domain.Tree;
 import org.rabie.citronix.domain.enums.Session;
 import org.rabie.citronix.exception.HarvestNullException;
 import org.rabie.citronix.repository.HarvestRepository;
-import org.rabie.citronix.service.HarvestDetailService;
-import org.rabie.citronix.service.HarvestService;
-import org.rabie.citronix.service.SaleService;
-import org.rabie.citronix.service.TreeService;
+import org.rabie.citronix.service.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 
 @Component("harvestService")
 public class HarvestServiceImpl implements HarvestService {
@@ -34,7 +34,7 @@ public class HarvestServiceImpl implements HarvestService {
     public Harvest save(Harvest harvest, Long fieldId) {
         if (harvest == null) throw new HarvestNullException("Harvest cannot be null");
         harvest.setSession(getSessionFromDate(harvest.getHarvestDate()));
-        if(existsBySessionAndHarvestDate(harvest.getSession(), harvest.getHarvestDate()))
+        if(harvestRepository.existsByFieldIdAndHarvestSeasonAndHarvestYear(fieldId,harvest.getSession(), YearMonth.from(harvest.getHarvestDate()).getYear()) && harvest.getId()==null)
             throw new HarvestNullException("Harvest already exists for this session");
         if(fieldId!=null){
             return saveHarvestWithDetails(fieldId, harvest);
@@ -44,6 +44,11 @@ public class HarvestServiceImpl implements HarvestService {
 
     public Harvest saveHarvestWithDetails(Long fieldId, Harvest harvest) {
         List<Tree> trees = treeService.getByFieldId(fieldId);
+        Tree lastCreatedTree = trees.stream().max((tree1, tree2) -> tree1.getDatePlantation().compareTo(tree2.getDatePlantation())).orElse(null);
+        if(lastCreatedTree != null && lastCreatedTree.getDatePlantation().isAfter(harvest.getHarvestDate()))
+            throw new HarvestNullException("Harvest date must be after the last tree plantation date");
+
+
         List<HarvestDetail> harvestDetails = harvestDetailService.getListDetail(trees);
         double totalQuantity = harvestDetails.stream().map(HarvestDetail::getQuantityHarvested).reduce(0., Double::sum);
         harvest.setTotalQuantity(totalQuantity);
@@ -54,9 +59,6 @@ public class HarvestServiceImpl implements HarvestService {
         }).toList();
         harvestDetailService.saveAll(harvestDetails);
         return savedHarvest;
-    }
-    public Boolean existsBySessionAndHarvestDate(Session session, LocalDate harvestDate) {
-        return harvestRepository.existsBySessionAndHarvestDate(session, harvestDate);
     }
     public Session getSessionFromDate(LocalDate date) {
         int month = date.getMonthValue();
@@ -72,6 +74,7 @@ public class HarvestServiceImpl implements HarvestService {
         return harvestRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public void delete(Long id) {
         Harvest harvest = findById(id);
         if(harvest == null)
