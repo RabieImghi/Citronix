@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/citronix
-    username: citronix
-    password:
+    url: jdbc:postgresql://localhost:5433/JenkinsDb
+    username: JenkinsDb
+    password: JenkinsDb
     driver-class-name: org.postgresql.Driver
 
   jpa:

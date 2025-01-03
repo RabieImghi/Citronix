@@ -36,7 +36,7 @@ public class HarvestDetailRest {
     public ResponseEntity<HarvestDetailResponse> save(@RequestBody HarvestDetailRequest harvestDetailRequest) {
         Harvest harvest = harvestService.findById(harvestDetailRequest.getHarvestId());
         Tree tree = treeService.getById(harvestDetailRequest.getTreeId());
-        if(harvestDetailService.existsByHarvestAndTree(harvest.getId(), tree.getId()))
+        if(!harvestDetailService.existsByHarvestAndTree(harvest.getId(), tree.getId()))
             throw new HarvestDetailAlreadyExistException("Harvest detail already exists");
         HarvestDetail harvestDetail = new HarvestDetail();
         harvestDetail.setHarvest(harvest);

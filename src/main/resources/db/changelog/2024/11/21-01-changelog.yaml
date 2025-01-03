@@ -1,66 +1,13 @@
 databaseChangeLog:
   - changeSet:
-      id: 1732133685777-1
-      author: Youcode
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - createSequence:
-            incrementBy: 50
-            sequenceName: farm_seq
-            startValue: 1
-  - changeSet:
-      id: 1732133685777-2
-      author: Youcode
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - createSequence:
-            incrementBy: 50
-            sequenceName: field_seq
-            startValue: 1
-  - changeSet:
-      id: 1732133685777-3
-      author: Youcode
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - createSequence:
-            incrementBy: 50
-            sequenceName: harvest_detail_seq
-            startValue: 1
-  - changeSet:
-      id: 1732133685777-4
-      author: Youcode
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - createSequence:
-            incrementBy: 50
-            sequenceName: harvest_seq
-            startValue: 1
-  - changeSet:
-      id: 1732133685777-5
-      author: Youcode
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - createSequence:
-            incrementBy: 50
-            sequenceName: sale_seq
-            startValue: 1
-  - changeSet:
-      id: 1732133685777-6
-      author: Youcode
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - createSequence:
-            incrementBy: 50
-            sequenceName: tree_seq
-            startValue: 1
-  - changeSet:
-      id: 1732133685777-7
+      id: 1732224198658-1
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -81,13 +28,14 @@ databaseChangeLog:
                   type: DATE
             tableName: farm
   - changeSet:
-      id: 1732133685777-8
+      id: 1732224198658-2
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -105,13 +53,14 @@ databaseChangeLog:
                   type: BIGINT
             tableName: field
   - changeSet:
-      id: 1732133685777-9
+      id: 1732224198658-3
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -129,13 +78,14 @@ databaseChangeLog:
                   type: DOUBLE
             tableName: harvest
   - changeSet:
-      id: 1732133685777-10
+      id: 1732224198658-4
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -153,13 +103,14 @@ databaseChangeLog:
                   type: BIGINT
             tableName: harvest_detail
   - changeSet:
-      id: 1732133685777-11
+      id: 1732224198658-5
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -180,13 +131,14 @@ databaseChangeLog:
                   type: BIGINT
             tableName: sale
   - changeSet:
-      id: 1732133685777-12
+      id: 1732224198658-6
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -204,7 +156,7 @@ databaseChangeLog:
                   type: BIGINT
             tableName: tree
   - changeSet:
-      id: 1732133685777-13
+      id: 1732224198658-7
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -215,7 +167,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: farm
   - changeSet:
-      id: 1732133685777-14
+      id: 1732224198658-8
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -226,7 +178,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: harvest
   - changeSet:
-      id: 1732133685777-15
+      id: 1732224198658-9
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -237,7 +189,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: tree
   - changeSet:
-      id: 1732133685777-16
+      id: 1732224198658-10
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -248,7 +200,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: harvest
   - changeSet:
-      id: 1732133685777-17
+      id: 1732224198658-11
       author: Youcode
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:

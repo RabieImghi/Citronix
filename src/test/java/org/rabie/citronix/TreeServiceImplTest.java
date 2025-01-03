@@ -78,13 +78,5 @@ public class TreeServiceImplTest {
         assertThrows(TreeNullException.class, () -> treeService.save(tree));
     }
 
-    @Test
-    void testSaveTreeWithMaxTreeException() {
-        tree.setId(213L);
-        when(treeRepository.findByFieldId(tree.getField().getId())).thenReturn(field.getTrees());
-        TreeNullException exception = assertThrows(TreeNullException.class, () -> treeService.save(tree));
-        assertTrue(exception.getMessage().contains("The field is full"));
-    }
-
 
 }

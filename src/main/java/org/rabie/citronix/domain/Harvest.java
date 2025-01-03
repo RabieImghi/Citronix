@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 public class Harvest {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Session session;
     private LocalDate harvestDate;
